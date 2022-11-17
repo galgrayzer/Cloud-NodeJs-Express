@@ -31,9 +31,17 @@
                                     <form action="/share-file/{{this._id}}">
                                         <input type="hidden" name="userId" value={{../user._id}}>
                                         <div class="uk-animation-toggle" tabindex="0">
-                                        <button type="submit" class="btn btn-icon hvr-forward">
-                                            <img src="https://e7.pngegg.com/pngimages/32/955/png-clipart-computer-icons-share-icon-icon-design-shares-angle-triangle.png" height="30" width="30" alt="share">
-                                        </button>
+                                            <button type="submit" class="btn btn-icon hvr-backward">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/61/61457.png" height="30" width="30" alt="lock">
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <form action="/share-file/{{this._id}}">
+                                        <input type="hidden" name="userId" value={{../user._id}}>
+                                        <div class="uk-animation-toggle" tabindex="0">
+                                            <button type="submit" class="btn btn-icon hvr-forward">
+                                                <img src="https://e7.pngegg.com/pngimages/32/955/png-clipart-computer-icons-share-icon-icon-design-shares-angle-triangle.png" height="30" width="30" alt="share">
+                                            </button>
                                         </div>
                                     </form>
                                     <small>Size: {{this.size}} <span class="date text-muted">{{this.creationDate}}</span></small>

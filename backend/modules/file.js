@@ -30,6 +30,10 @@ const fileSchema = new Schema(
       type: Date,
       require: false,
     },
+    password: {
+      type: String,
+      require: false,
+    },
     owner: {
       type: mongoose.Types.ObjectId,
       require: true,

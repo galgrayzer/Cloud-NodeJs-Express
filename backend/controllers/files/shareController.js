@@ -115,6 +115,9 @@ exports.getGetShare = (req, res, next) => {
           document: "Page not found",
         });
       }
+      file.shraeToken = undefined;
+      file.shareTokenExp = undefined;
+      file.save();
       res.render("./files/get-file", {
         document: "Get file",
         file: file.toObject(),
