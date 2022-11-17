@@ -1,0 +1,17 @@
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form action="/delete-account" method="POST">
+    <h3 class="uk-text-danger">DELETE ACCOUNT</h3>
+    <p>to delete your account please enter your username</p>
+    <label for="username">Account Name</label>
+    <input type="text" name="userValidName" placeholder={{user.username}} id="input" onkeyup="stateHandle()" onchange="stateHandle()" autocomplete="off">
+
+    <input type="hidden" name="username" id="username" value={{user.username}}>
+    <input type="hidden" name="id" id="id" value={{user._id}}>
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    back to <a href="/">Main Page</a>
+    <button type="submit" id="button" disabled="true" style="background-color: rgba(95, 85, 85, 0.644);">DELETE</button>
+</form>
+<script src="/js/deleteButton.js"></script>

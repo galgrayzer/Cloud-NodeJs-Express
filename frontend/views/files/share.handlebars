@@ -1,0 +1,18 @@
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form action="/share-file/{{file._id}}" method="POST">
+    {{#if userError}}
+    <h4 class="uk-text-danger uk-text-center uk-margin-medium-bottom">User with this email not found</h4>
+    {{else if shared}}
+    <h3 class="uk-text-success">Email sent!</h3>
+    {{else}}
+    <h3>Share {{fileName}}</h3>
+    {{/if}}
+    <label for="username">Email</label>
+    <input type="text" placeholder="Email" id="email" name="email" value={{email}}>
+    <a href="/files">back to your files</a>
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    <button class="" type="submit">Share</button>
+</form>

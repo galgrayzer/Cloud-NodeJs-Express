@@ -1,0 +1,25 @@
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form action="/account" method="POST">
+    
+    {{#if message}}
+    <h4 class="uk-text-danger uk-text-center">{{message}}</h4>
+    {{else}}
+    <h3>Edit Account</h3>
+    {{/if}}
+    <label for="username">Username</label>
+    <input type="text" placeholder="only alphanumeric chars | Max: 20" id="username" name="username" value={{user.username}}>
+
+    <label for="email">Email</label>
+    <input class="uk-margin-medium-bottom" type="email" placeholder="exmpale@exaple.end" id="email" name="email" value={{user.email}}>
+
+    
+    <a href="/delete-account" class="uk-text-danger" style="margin-left: 90px; font-weight: bold;">DELETE ACCOUNT</a>
+
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    <button class="uk-margin-medium-top" type="submit">Update</button>
+</form>
+
+<script src="/js/eye.js"></script>

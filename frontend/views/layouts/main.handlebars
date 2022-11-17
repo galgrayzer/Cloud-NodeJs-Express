@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="uk-background-secondary">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/uk/uikit.min.css" />
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/cloud.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/252/252035.png">
+    <script src="/js/uk/uikit.min.js"></script>
+    <script src="/js/uk/uikit-icons.min.js"></script>
+    {{#if account}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login.css">
+    {{/if}}
+    {{#if reset}}
+    <style>
+        form {
+            height: 400px;
+        }
+    </style>
+    {{/if}}
+    {{#if signup}}
+    <style>
+        form {
+            height: 620px;
+        }
+    </style>
+    {{/if}}
+    {{#if deleteAccount}}
+    <style>
+        form {
+            height: 450px;
+        }
+    </style>
+    {{/if}}
+    {{#if files}}
+    {{#if share}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login.css">
+    <style>
+        form {
+            height: 400px;
+        }
+    </style>
+    {{else}}
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="/css/bootstrap-files.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/files.css">
+    {{/if}}
+    {{/if}}
+    <title>{{document}}</title>
+</head>
+
+<body>
+    <div style="margin-left: 20px; margin-right: 20px; ">
+        <nav class="uk-navbar-container" style="background: #222; !important" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li {{#if account}} class="uk-active" {{/if}}>
+                        <a href="/account">{{#if userAuth}}{{user.username}}{{else}}account{{/if}}</a>
+                        {{#if editAccount}}
+                        {{else}}
+                        {{#if share}}
+                        {{else}}
+                        <div class="uk-navbar-dropdown" style="background-color: #111;">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                {{#if userAuth}}
+                                    <form action="/logout" method="POST">
+                                        <input type="hidden" name="_csrf" value={{csrfToken}}>
+                                        <button class="uk-button btn-logout" type="submit">logout</button>
+                                    </form>
+                                {{else}}
+                                    <li {{#if login}} class="uk-active" {{/if}}><a href="/login">login</a></li>
+                                    <li {{#if signup}} class="uk-active" {{/if}}><a href="/signup">signup</a></li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                        {{/if}}
+                        {{/if}}
+                    </li>
+                    {{#if userAuth}}<li {{#if files}} class="uk-active" {{/if}}><a href="/files">files</a></li>{{/if}}
+                </ul>
+            </div>
+            <div class="uk-navbar-center" style="margin: auto;">
+                <img id='loading' src='/utils/loading.gif' style="visibility: hidden; position: absolute;">
+            </div>
+            <div class="uk-navber-right" style="margin-left: auto;">
+                <ul class="uk-navbar-nav">
+                    <li><a href="/">
+                            <div class="cloud">
+                                <div class="cloud-copy"></div>
+                                <div class="rain">
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                    <div class="drop"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    {{{body}}}
+</body>
+
+</html>

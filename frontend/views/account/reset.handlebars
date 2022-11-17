@@ -1,0 +1,19 @@
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form action="/reset-password" method="POST">
+    {{#if userError}}
+    <h3 class="uk-text-danger uk-text-center uk-margin-medium-bottom">Email didn't found</h3>
+    {{else if emailSent}}
+    <h3 class="uk-text-success uk-text-center uk-margin-remove-bottom">Email reset sent!</h3>
+    {{else}}
+    <h3>Reset Password</h3>
+    {{/if}}
+    <label for="username">Email</label>
+    <input type="text" placeholder="Email" id="email" name="email">
+    just remembered in your password? <a href="/login">login</a>
+
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    <button class="" type="submit">Reset Password</button>
+</form>

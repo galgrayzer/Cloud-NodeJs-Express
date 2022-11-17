@@ -1,0 +1,246 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80px;
+    height: 80px;
+}
+
+.container .canvas {
+    position: relative;
+    padding-top: 100%;
+    overflow: hidden;
+}
+
+.cloud {
+    position: absolute;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #18baf0;
+    border-radius: 44% 56% 49% 51%/71% 63% 37% 29%;
+    animation: cloudColorChange 3s linear infinite;
+}
+
+@keyframes cloudColorChange {
+
+    0%,
+    100% {
+        background: #18baf0;
+    }
+
+    50% {
+        background: #18baf0;
+    }
+}
+
+.cloud:before {
+    content: "";
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    top: 10%;
+    left: -50%;
+    right: -50%;
+    background: inherit;
+    right: unset;
+    border-radius: 52% 48% 58% 42%/43% 61% 39% 57%;
+}
+
+.cloud:after {
+    content: "";
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    top: 10%;
+    left: -50%;
+    right: -50%;
+    background: inherit;
+    left: unset;
+    border-radius: 52% 48% 49% 51%/43% 61% 39% 57%;
+}
+
+.cloud .cloud-copy {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: inherit;
+    border-radius: inherit;
+    z-index: 2;
+}
+
+.cloud .cloud-copy:before {
+    content: "";
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    top: 10%;
+    left: -50%;
+    right: -50%;
+    background: inherit;
+    right: unset;
+    border-radius: 52% 48% 58% 42%/43% 61% 39% 57%;
+}
+
+.cloud .cloud-copy:after {
+    content: "";
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    top: 10%;
+    left: -50%;
+    right: -50%;
+    background: inherit;
+    left: unset;
+    border-radius: 52% 48% 49% 51%/43% 61% 39% 57%;
+}
+
+.cloud .rain {
+    position: absolute;
+    width: 140%;
+    height: 100%;
+    left: -20%;
+    top: 80%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+@keyframes rainDropFall {
+    15% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+    }
+
+    100% {
+        top: 120%;
+        opacity: 0;
+    }
+}
+
+.cloud .rain .drop:nth-of-type(1) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 1s linear infinite;
+    left: 10%;
+}
+
+.cloud .rain .drop:nth-of-type(2) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s linear infinite;
+    left: 28.5%;
+}
+
+.cloud .rain .drop:nth-of-type(3) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 1s linear infinite;
+    left: 47%;
+}
+
+.cloud .rain .drop:nth-of-type(4) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s linear infinite;
+    right: 28.5%;
+}
+
+.cloud .rain .drop:nth-of-type(5) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 1s linear infinite;
+    right: 10%;
+}
+
+.cloud .rain .drop:nth-of-type(6) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 2s linear infinite;
+    left: 28.5%;
+}
+
+.cloud .rain .drop:nth-of-type(7) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 2s linear infinite;
+    right: 28.5%;
+}
+
+.cloud .rain .drop:nth-of-type(8) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 3s linear infinite;
+    left: 10%;
+}
+
+.cloud .rain .drop:nth-of-type(9) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 3s linear infinite;
+    left: 47%;
+}
+
+.cloud .rain .drop:nth-of-type(10) {
+    position: absolute;
+    width: 3%;
+    height: 20%;
+    top: -20%;
+    background: #18baf0;
+    border-radius: 1rem;
+    transform: rotate(22deg);
+    animation: rainDropFall 4s 3s linear infinite;
+    right: 10%;
+}

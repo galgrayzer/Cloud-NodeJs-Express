@@ -1,0 +1,23 @@
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form action="/login" method="POST">
+    {{#if userError}}
+    <h4 class="uk-text-danger uk-text-center uk-margin-medium-bottom">Email or password does not match</h4>
+    {{else}}
+    <h3>Login Here</h3>
+    {{/if}}
+    <label for="username">Email</label>
+    <input type="text" placeholder="Email" id="email" name="email" value={{email}}>
+
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password" name="password">
+    don't have a user? <a href="/signup">signup</a>
+    <i class="far fa-eye" id="togglePassword" style="margin-left: 110px; cursor: pointer;"></i>
+
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    <button class="" type="submit">Log In</button>
+    forgot your password? <a href="/reset-password">reset password</a>
+</form>
+<script src="/js/eye.js"></script>

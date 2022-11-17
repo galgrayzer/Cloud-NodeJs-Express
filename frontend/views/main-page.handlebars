@@ -1,0 +1,41 @@
+{{#if userAuth}}
+<h1 class="uk-text-center uk-text-muted uk-text-bold">Nice to see you again {{user.username}}!</h1>
+<div class="uk-child-width-1-1@m uk-grid-small uk-grid-match uk-container uk-margin-auto uk-margin-small-bottom uk-margin-medium"
+    style="opacity: 90%;" uk-grid>
+    <div>
+        <div class="uk-card uk-card-primary uk-card-body uk-card-large" style="border-radius: 10px; background-color: blueviolet !important;">
+            <h3 class="uk-card-title">My files</h3>
+            <p>click here to get into your private cloud files</p>
+            <form action="/files"><button
+                    class="uk-button uk-button-large uk-first-column uk-animition-shake btn-files"
+                    type="submit">Files</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{else}}
+<h1 class="uk-text-center uk-text-muted uk-text-bold">Welcome to my cloud!</h1>
+<h3 class="uk-text-center uk-text-muted uk-margin-small">Created by Gal Grayzer</h3>
+<div class="uk-child-width-1-2@m uk-grid-small uk-grid-match uk-container uk-margin-auto uk-margin-small-bottom uk-margin-medium"
+    style="opacity: 90%;" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body uk-card-large" style="border-radius: 10px;">
+            <h3 class="uk-card-title">Login</h3>
+            <p>If you allrady got an account all you need is to login!</p>
+            <form action="/login"><button class="uk-button uk-button-large uk-first-column btn-login"
+                    type="submit">login</button>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div class="uk-card uk-card-primary uk-card-body uk-card-large" style="border-radius: 10px; ">
+            <h3 class="uk-card-title">Signup</h3>
+            <p>If you are new here just signup here!</p>
+            <form action="/signup"><button
+                    class="uk-button uk-button-large uk-first-column uk-animition-shake btn-signup"
+                    type="submit">Signup</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{/if}}

@@ -1,0 +1,61 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<form id="form" action="/add-file" enctype="multipart/form-data" method="post">
+    <label id="fileLabel" for="file" class="uk-align-center uk-button uk-button-large uk-first-column btn-login", style="width: 188px;">Add File</label>
+    <input style="visibility: hidden;" type="file" id="file" name="file">
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+</form>
+
+<div id="main-content" class="file_manager">
+        <div class="container">
+            <div class="row clearfix">
+                {{#each userFiles}}
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="card">
+                        <div class="file">
+                            <a href="/file/{{this._id}}">
+                                <div class="hover">
+                                    <form action="/delete-file/{{this._id}}" method="POST">
+                                        <input type="hidden" name="userId" value={{../user._id}}>
+                                        <input type="hidden" id="_csrf" name="_csrf" value={{../csrfToken}}>
+                                        <button type="submit" class="btn btn-icon btn-danger" onclick="showLoading()">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="image">
+                                    <img src="/file-ext images/{{this.image}}" alt="img" class="img-fluid">
+                                </div>
+                                <div class="file-name">
+                                    <p class="m-b-5 text-muted">{{this.name}}</p>
+                                    <form action="/share-file/{{this._id}}">
+                                        <input type="hidden" name="userId" value={{../user._id}}>
+                                        <div class="uk-animation-toggle" tabindex="0">
+                                        <button type="submit" class="btn btn-icon hvr-forward">
+                                            <img src="https://e7.pngegg.com/pngimages/32/955/png-clipart-computer-icons-share-icon-icon-design-shares-angle-triangle.png" height="30" width="30" alt="share">
+                                        </button>
+                                        </div>
+                                    </form>
+                                    <small>Size: {{this.size}} <span class="date text-muted">{{this.creationDate}}</span></small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            
+        </div>
+</div>
+
+<script>
+    document.getElementById("file").onchange = function() {
+        document.getElementById("fileLabel").classList = "uk-align-center uk-button uk-button-large uk-first-column btn-login-green"
+        showLoading()
+        document.getElementById("fileLabel").classList = "uk-align-center uk-button uk-button-large uk-first-column btn-login-green"
+        document.getElementById("form").submit();
+    };
+    function showLoading(){
+        document.getElementById("loading").style = "visibility: visible";
+    }
+</script>
