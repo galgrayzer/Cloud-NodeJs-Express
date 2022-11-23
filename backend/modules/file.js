@@ -30,8 +30,12 @@ const fileSchema = new Schema(
       type: Date,
       require: false,
     },
-    password: {
-      type: String,
+    key: {
+      type: Buffer,
+      require: false,
+    },
+    iv: {
+      type: Buffer,
       require: false,
     },
     owner: {

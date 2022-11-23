@@ -1,6 +1,8 @@
 const User = require("../../modules/user");
 const File = require("../../modules/file");
 const fs = require("fs");
+const crypto = require("crypto");
+const encrypt = require("../../utils/encryption");
 
 const sizeC = (size) => {
   if (size < 1000) {
@@ -182,26 +184,26 @@ exports.getDownload = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.getLock = (req, res, next) => {
+exports.postLock = (req, res, next) => {
   File.findById(req.params.fileId)
-    .lean()
     .then((file) => {
       if (!file) {
         console.log("file not found");
-        return res.redirect("files");
+        return res.redirect("/files");
       }
       if (file.owner.toString() !== req.session.user._id.toString()) {
         console.log("acsses denied");
-        return res.redirect("files");
+        return res.redirect("/files");
       }
-      return res.render("./files/lock", {
-        document: "Lock",
-        files: true,
-        file: file,
-        share: true, // just for styling
-        fileName:
-          file.name.length < 16 ? file.name : file.name.slice(0, 15) + "...",
-      });
+      if (!file.key) {
+        const key = crypto.randomBytes(32);
+        const iv = crypto.randomBytes(16);
+        file.key = key;
+        file.iv = iv;
+        file.save();
+        encrypt.encrypt(file.path, key, iv);
+        return res.render("/files");
+      }
     })
     .catch((err) => console.log(err));
 };
