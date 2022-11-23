@@ -13,7 +13,7 @@ exports.getShare = (req, res, next) => {
         console.log("file not found");
         return res.redirect("/files");
       }
-      if (req.query.userId !== req.session.user._id.toString()) {
+      if (req.query.userId.toString() !== req.session.user._id.toString()) {
         console.log("User accsses denied!");
         return res.status(404).render("404", {
           document: "Page not found",
