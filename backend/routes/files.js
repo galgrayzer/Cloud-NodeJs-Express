@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const auth = require("../middlewares/isAuth");
 
-const filesC = require("../controllers/files/filesController");
+const filesC = require("../controllers/files/filesController.js");
 const shareC = require("../controllers/files/shareController");
 
 router.get("/files", auth.authVerification, filesC.getFiles);
@@ -23,5 +23,7 @@ router.post("/share-file/:fileId", auth.authVerification, shareC.postShare);
 router.get("/get-share/:token", auth.authVerification, shareC.getGetShare);
 
 router.post("/get-share", auth.authVerification, shareC.postGetShare);
+
+router.get("/lock/:fileId", auth.authVerification, filesC.getLock);
 
 module.exports = router;

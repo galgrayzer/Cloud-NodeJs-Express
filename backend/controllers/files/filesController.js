@@ -181,3 +181,27 @@ exports.getDownload = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.getLock = (req, res, next) => {
+  File.findById(req.params.fileId)
+    .lean()
+    .then((file) => {
+      if (!file) {
+        console.log("file not found");
+        return res.redirect("files");
+      }
+      if (file.owner.toString() !== req.session.user._id.toString()) {
+        console.log("acsses denied");
+        return res.redirect("files");
+      }
+      return res.render("./files/lock", {
+        document: "Lock",
+        files: true,
+        file: file,
+        share: true, // just for styling
+        fileName:
+          file.name.length < 16 ? file.name : file.name.slice(0, 15) + "...",
+      });
+    })
+    .catch((err) => console.log(err));
+};
