@@ -1,0 +1,19 @@
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form action="/lock/{{fileId}}" method="POST">
+    {{#if userError}}
+    <h4 class="uk-text-danger uk-text-center uk-margin-medium-bottom">password incorrect</h4>
+    {{else}}
+    <h4 class="uk-text-center">Enter your password to confirm locking this file</h4>
+    {{/if}}
+    <label for="username">Password</label>
+    <input type="password" placeholder="Password" id="password" name="password">
+    <a href="/files">back to your files</a>
+    <i class="far fa-eye" id="togglePassword" style="margin-left: 155px; cursor: pointer;"></i>
+    <input type="hidden" name="_csrf" value={{csrfToken}}>
+    <button class="" type="submit">Confirm</button>
+</form>
+
+<script src="/js/eye.js"></script>

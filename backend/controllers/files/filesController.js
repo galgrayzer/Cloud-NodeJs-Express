@@ -3,6 +3,7 @@ const File = require("../../modules/file");
 const fs = require("fs");
 const crypto = require("crypto");
 const encrypt = require("../../utils/encryption");
+const bcrypt = require("bcryptjs");
 
 const sizeC = (size) => {
   if (size < 1000) {
@@ -184,6 +185,15 @@ exports.getDownload = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+exports.getLock = (req, res, next) => {
+  res.render("./files/lock", {
+    document: "Confirm",
+    files: true,
+    fileId: req.params.fileId,
+    share: true, // only for style
+  });
+};
+
 exports.postLock = (req, res, next) => {
   File.findById(req.params.fileId)
     .then((file) => {
@@ -195,19 +205,36 @@ exports.postLock = (req, res, next) => {
         console.log("acsses denied");
         return res.redirect("/files");
       }
-      if (!file.key) {
-        const key = crypto.randomBytes(32);
-        const iv = crypto.randomBytes(16);
-        file.key = key;
-        file.save();
-        encrypt.encrypt(file.path, key, iv);
-        return res.redirect("/files");
-      } else {
-        encrypt.decrypt(file.path, file.key);
-        file.key = undefined;
-        file.save();
-        return res.redirect("/files");
-      }
+      User.findById(file.owner)
+        .then(user => {
+          return bcrypt
+          .compare(req.body.password, user.password)
+          .then((doMatch) => {
+            if (!doMatch) {
+              return res.render("./files/lock", {
+                document: "Confirm",
+                files: true,
+                fileId: req.params.fileId,
+                share: true, // only for style
+                userError: true
+              });
+            }
+            if (!file.key) {
+              const key = crypto.randomBytes(32);
+              const iv = crypto.randomBytes(16);
+              file.key = key;
+              file.save();
+              encrypt.encrypt(file.path, key, iv);
+              return res.redirect("/files");
+            } else {
+              encrypt.decrypt(file.path, file.key);
+              file.key = undefined;
+              file.save();
+              return res.redirect("/files");
+            }
+        })
+        .catch((err) => console.log(err));
     })
     .catch((err) => console.log(err));
-};
+  }
+)}
