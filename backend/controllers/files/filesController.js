@@ -48,29 +48,17 @@ exports.getFiles = (req, res, next) => {
           userFiles: userFiles,
         });
       }
-      const promises = [];
-      for (let index = 0; index < user.files.length; index++) {
-        const fileId = user.files[index];
-        promises.push(
-          File.findById(fileId.fileId)
-            .lean()
-            .then((file) => {
-              if (!file) {
-                console.log("file not found!");
-              }
-              userFiles.push(file);
-            })
-        );
-      }
-      Promise.all(promises)
-        .then((results) => {
+      File.find({ owner: user._id })
+        .collation({ locale: "en", strength: 2 })
+        .sort({ name: 1 })
+        .lean()
+        .then((userFiles) => {
           return res.render("./files/files", {
             document: "Files",
             files: true,
             userFiles: userFiles,
           });
-        })
-        .catch((err) => console.log(err));
+        });
     })
     .catch((err) => console.log(err));
 };
@@ -195,19 +183,18 @@ exports.getLock = (req, res, next) => {
 };
 
 exports.postLock = (req, res, next) => {
-  File.findById(req.params.fileId)
-    .then((file) => {
-      if (!file) {
-        console.log("file not found");
-        return res.redirect("/files");
-      }
-      if (file.owner.toString() !== req.session.user._id.toString()) {
-        console.log("acsses denied");
-        return res.redirect("/files");
-      }
-      User.findById(file.owner)
-        .then(user => {
-          return bcrypt
+  File.findById(req.params.fileId).then((file) => {
+    if (!file) {
+      console.log("file not found");
+      return res.redirect("/files");
+    }
+    if (file.owner.toString() !== req.session.user._id.toString()) {
+      console.log("acsses denied");
+      return res.redirect("/files");
+    }
+    User.findById(file.owner)
+      .then((user) => {
+        return bcrypt
           .compare(req.body.password, user.password)
           .then((doMatch) => {
             if (!doMatch) {
@@ -216,7 +203,7 @@ exports.postLock = (req, res, next) => {
                 files: true,
                 fileId: req.params.fileId,
                 share: true, // only for style
-                userError: true
+                userError: true,
               });
             }
             if (!file.key) {
@@ -232,9 +219,9 @@ exports.postLock = (req, res, next) => {
               file.save();
               return res.redirect("/files");
             }
-        })
-        .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
-  }
-)}
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  });
+};
