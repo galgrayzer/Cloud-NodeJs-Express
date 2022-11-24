@@ -202,7 +202,7 @@ exports.postLock = (req, res, next) => {
         file.iv = iv;
         file.save();
         encrypt.encrypt(file.path, key, iv);
-        return res.render("/files");
+        return res.redirect("/files");
       }
     })
     .catch((err) => console.log(err));
