@@ -7568,3 +7568,12 @@ node_modules/wrap-ansi/index.js
 node_modules/wrap-ansi/license
 node_modules/wrap-ansi/package.json
 node_modules/wrap-ansi/readme.md
+frontend/views/files/lock.handlebars
+node_modules/file-encryptor/.npmignore
+node_modules/file-encryptor/package.json
+node_modules/file-encryptor/README.md
+node_modules/file-encryptor/lib/file-encryptor.js
+node_modules/file-encryptor/test/basic.js
+node_modules/file-encryptor/test/decrypted.example.txt
+node_modules/file-encryptor/test/example.txt
+node_modules/file-encryptor/test/example.txt.data

@@ -5,6 +5,8 @@
 <form action="/share-file/{{file._id}}" method="POST">
     {{#if userError}}
     <h4 class="uk-text-danger uk-text-center uk-margin-medium-bottom">User with this email not found</h4>
+    {{else if locked}}
+    <h4 class="uk-text-danger uk-text-center uk-margin-medium-bottom">File is corrently locked and encrypted! please unencrypt it if you wish to share it.</h4>
     {{else if shared}}
     <h3 class="uk-text-success">Email sent!</h3>
     {{else}}
