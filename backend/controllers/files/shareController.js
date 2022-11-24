@@ -13,7 +13,7 @@ exports.getShare = (req, res, next) => {
         console.log("file not found");
         return res.redirect("/files");
       }
-      if (req.query.userId.toString() !== req.session.user._id.toString()) {
+      if (file.owner.toString() !== req.session.user._id.toString()) {
         console.log("User accsses denied!");
         return res.status(404).render("404", {
           document: "Page not found",
@@ -38,6 +38,17 @@ exports.postShare = (req, res, next) => {
       if (!file) {
         console.log("file not found");
         return res.redirect("/files");
+      }
+      if (file.key) {
+        return res.render("./files/share", {
+          document: "Share File",
+          files: true,
+          share: true,
+          file: file.toObject(),
+          fileName:
+            file.name.length < 16 ? file.name : file.name.slice(0, 15) + "...",
+          locked: true,
+        });
       }
       User.findOne({ email: req.body.email })
         .then((user) => {

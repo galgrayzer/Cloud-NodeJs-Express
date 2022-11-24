@@ -22,6 +22,8 @@ router.post("/share-file/:fileId", auth.authVerification, shareC.postShare);
 
 router.get("/get-share/:token", auth.authVerification, shareC.getGetShare);
 
+router.post("/get-share", auth.authVerification, shareC.postGetShare);
+
 router.post("/lock/:fileId", auth.authVerification, filesC.postLock);
 
 module.exports = router;

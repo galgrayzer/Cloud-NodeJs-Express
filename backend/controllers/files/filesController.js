@@ -199,9 +199,13 @@ exports.postLock = (req, res, next) => {
         const key = crypto.randomBytes(32);
         const iv = crypto.randomBytes(16);
         file.key = key;
-        file.iv = iv;
         file.save();
         encrypt.encrypt(file.path, key, iv);
+        return res.redirect("/files");
+      } else {
+        encrypt.decrypt(file.path, file.key);
+        file.key = undefined;
+        file.save();
         return res.redirect("/files");
       }
     })

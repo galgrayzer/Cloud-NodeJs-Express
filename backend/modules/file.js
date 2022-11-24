@@ -34,10 +34,6 @@ const fileSchema = new Schema(
       type: Buffer,
       require: false,
     },
-    iv: {
-      type: Buffer,
-      require: false,
-    },
     owner: {
       type: mongoose.Types.ObjectId,
       require: true,
