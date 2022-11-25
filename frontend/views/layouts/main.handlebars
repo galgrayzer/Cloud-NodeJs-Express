@@ -62,8 +62,8 @@
         <nav class="uk-navbar-container" style="background: #222; !important" uk-navbar>
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
-                    <li {{#if account}} class="uk-active" {{/if}}>
-                        <a href="/account">{{#if userAuth}}{{user.username}}{{else}}account{{/if}}</a>
+                    <li>
+                        <a {{#if account}} class="uk-text-success" {{/if}} href="/account">{{#if userAuth}}{{user.username}}{{else}}account{{/if}}</a>
                         {{#if editAccount}}
                         {{else}}
                         {{#if share}}
@@ -76,15 +76,15 @@
                                         <button class="uk-button btn-logout" type="submit">logout</button>
                                     </form>
                                 {{else}}
-                                    <li {{#if login}} class="uk-active" {{/if}}><a href="/login">login</a></li>
-                                    <li {{#if signup}} class="uk-active" {{/if}}><a href="/signup">signup</a></li>
+                                    <li><a {{#if login}} class="uk-text-success" {{/if}} href="/login">login</a></li>
+                                    <li><a {{#if signup}} class="uk-text-success" {{/if}} href="/signup">signup</a></li>
                                 {{/if}}
                             </ul>
                         </div>
                         {{/if}}
                         {{/if}}
                     </li>
-                    {{#if userAuth}}<li {{#if files}} class="uk-active" {{/if}}><a href="/files">files</a></li>{{/if}}
+                    {{#if userAuth}}<li><a {{#if files}} class="uk-text-success" {{/if}} href="/files">files</a></li>{{/if}}
                 </ul>
             </div>
             <div class="uk-navbar-center" style="margin: auto;">

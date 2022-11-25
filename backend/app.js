@@ -7,7 +7,6 @@ const session = require("express-session");
 const MongoDbStore = require("connect-mongodb-session")(session);
 const csrfProt = require("csurf")();
 const multer = require("multer");
-const dddos = require("dddos");
 
 require("dotenv").config();
 
@@ -29,10 +28,6 @@ server.set("view engine", "handlebars");
 
 // set views folder
 server.set("views", path.join(__dirname, "..", "frontend", "views"));
-
-// init ddos prot
-
-server.use(new dddos().express());
 
 // init body-parser
 server.use(bp.urlencoded({ extended: false }));

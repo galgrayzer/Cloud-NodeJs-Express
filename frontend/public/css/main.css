@@ -106,3 +106,8 @@
 ::-webkit-file-upload-button {
     display: none;
  }
+
+.opcity{
+    color :rgb(57, 180, 236);
+    opacity: 1;
+}
