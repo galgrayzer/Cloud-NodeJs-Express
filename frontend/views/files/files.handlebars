@@ -39,7 +39,7 @@
                                     <form action="/share-file/{{this._id}}">
                                         <div class="uk-animation-toggle" tabindex="0">
                                             <button type="submit" class="btn btn-icon hvr-forward">
-                                                <img src="https://e7.pngegg.com/pngimages/32/955/png-clipart-computer-icons-share-icon-icon-design-shares-angle-triangle.png" height="30" width="30" alt="share">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/25/25419.png" height="30" width="30" alt="share">
                                             </button>
                                         </div>
                                     </form>
@@ -57,9 +57,9 @@
 
 <script>
     document.getElementById("file").onchange = function() {
-        document.getElementById("fileLabel").classList = "uk-align-center uk-button uk-button-large uk-first-column btn-login-green"
         showLoading()
-        document.getElementById("fileLabel").classList = "uk-align-center uk-button uk-button-large uk-first-column btn-login-green"
+        document.getElementById("fileLabel").classList = "uk-align-center uk-button uk-button-large uk-first-column btn-login-green";
+        document.getElementById("fileLabel").innerHTML = "please wait";
         document.getElementById("form").submit();
     };
     function showLoading(){
