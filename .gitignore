@@ -7584,3 +7584,11 @@ node_modules/dddos/README.md
 node_modules/dddos/rule.js
 node_modules/dddos/tests/index.js
 node_modules/dddos/tests/rule.js
+node_modules/@aws-sdk/types/dist-cjs/checksum.js
+node_modules/@aws-sdk/types/dist-cjs/retry.js
+node_modules/@aws-sdk/types/dist-es/checksum.js
+node_modules/@aws-sdk/types/dist-es/retry.js
+node_modules/@aws-sdk/types/dist-types/checksum.d.ts
+node_modules/@aws-sdk/types/dist-types/retry.d.ts
+node_modules/@aws-sdk/types/dist-types/ts3.4/checksum.d.ts
+node_modules/@aws-sdk/types/dist-types/ts3.4/retry.d.ts

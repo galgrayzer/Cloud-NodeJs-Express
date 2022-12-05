@@ -18,9 +18,13 @@ router.post(
   auth.isNotLogged,
   body("username", "Username not valid")
     .isAlphanumeric()
-    .isLength({ min: 1, max: 20 }),
+    .withMessage("Username can only contain alphanumeric chars")
+    .isLength({ max: 20 })
+    .withMessage("Username length to long"),
   check("email", "Email not valid").isEmail(),
-  body("password", "Password not valid").isLength({ min: 8 }),
+  body("password", "Password not valid")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 chars long"),
   signupController.postSignup
 );
 
@@ -34,7 +38,9 @@ router.get("/reset-password/:token", resetController.getUpdateP);
 
 router.post(
   "/update-password",
-  body("password", "Password not valid").isLength({ min: 8 }),
+  body("password", "Password not valid")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 chars long"),
   resetController.postUpdateP
 );
 
@@ -45,7 +51,9 @@ router.post(
   auth.authVerification,
   body("username", "Username not valid")
     .isAlphanumeric()
-    .isLength({ min: 1, max: 20 }),
+    .withMessage("Username can only contain alphanumeric chars")
+    .isLength({ max: 20 })
+    .withMessage("Username length to long"),
   check("email", "Email not valid").isEmail(),
   accountController.postAccount
 );

@@ -18,7 +18,7 @@ exports.postSignup = (req, res, next) => {
       document: "Signup",
       signup: true,
       account: true,
-      message: errors.array({ onlyFirstError: true })[0].msg,
+      message: errors.array()[0].msg,
       username: body.username,
       email: body.email,
       password: body.password,

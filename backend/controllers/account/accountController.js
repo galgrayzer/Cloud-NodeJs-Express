@@ -30,7 +30,7 @@ exports.postAccount = (req, res, next) => {
       account: true,
       editAccount: true,
       userAuth: true,
-      message: errors.array({ onlyFirstError: true })[0].msg,
+      message: errors.array()[0].msg,
     });
   }
   User.findOne({ _id: req.session.user._id })
