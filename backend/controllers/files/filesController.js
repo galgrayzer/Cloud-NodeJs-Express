@@ -159,6 +159,11 @@ exports.getDownload = (req, res, next) => {
           document: "Page not found",
         });
       }
+      if (!fs.existsSync(file.path)) {
+        console.log("file not found");
+        req.body.userId = file.owner.toString();
+        return this.postDeleteFile(req, res, next);
+      }
       const fileData = fs.createReadStream(file.path); // Read stream of file
       res.setHeader(
         "Content-Type",
