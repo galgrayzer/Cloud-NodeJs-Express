@@ -102,6 +102,10 @@ exports.postDeleteFile = (req, res, next) => {
   const userId = req.body.userId;
   File.findById(fileId)
     .then((file) => {
+      if (!file) {
+        console.log("file not found");
+        return res.redirect("/files");
+      }
       if (file.owner.toString() !== userId) {
         return res.redirect("/files");
       }
