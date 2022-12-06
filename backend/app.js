@@ -63,7 +63,7 @@ const store = new MongoDbStore({
 });
 server.use(
   session({
-    secret: crypto.randomBytes(32).toString("hex"),
+    secret: "0", // crypto.randomBytes(32).toString("hex"), FOR DEVELOPMENT
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 5 * 60 * 60 * 1000 }, // 5 hours
@@ -91,6 +91,7 @@ server.use(main);
 server.use("/", errorController.e404);
 
 // init MongoDb database - mongoose
+mongoose.set("strictQuery", true);
 mongoose
   .connect(MONGODB_URI)
   .then((result) => {
