@@ -7,8 +7,9 @@ const session = require("express-session");
 const MongoDbStore = require("connect-mongodb-session")(session);
 const csrfProt = require("csurf")();
 const multer = require("multer");
+const crypto = require("crypto");
 
-require("dotenv").config();
+require("dotenv").config(); // writes environment variables to procces
 
 process.stdout.write("\033c"); // clears terminal
 
@@ -62,7 +63,7 @@ const store = new MongoDbStore({
 });
 server.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: crypto.randomBytes(32).toString("hex"),
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 5 * 60 * 60 * 1000 }, // 5 hours
