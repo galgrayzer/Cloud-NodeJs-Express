@@ -10,6 +10,8 @@ const multer = require("multer");
 
 require("dotenv").config();
 
+process.stdout.write("\033c"); // clears terminal
+
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // routes
@@ -90,5 +92,8 @@ server.use("/", errorController.e404);
 // init MongoDb database - mongoose
 mongoose
   .connect(MONGODB_URI)
-  .then((result) => server.listen(process.env.PORT))
+  .then((result) => {
+    server.listen(process.env.PORT);
+    console.log("App is runing on - " + process.env.PUBLIC_URL);
+  })
   .catch((err) => console.log(err));
