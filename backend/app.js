@@ -63,7 +63,7 @@ const store = new MongoDbStore({
 });
 server.use(
   session({
-    secret: "0", // crypto.randomBytes(32).toString("hex"), FOR DEVELOPMENT
+    secret: crypto.randomBytes(32).toString("hex"),
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 5 * 60 * 60 * 1000 }, // 5 hours
