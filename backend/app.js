@@ -33,7 +33,7 @@ server.set("view engine", "handlebars");
 server.set("views", path.join(__dirname, "..", "frontend", "views"));
 
 // init body-parser
-server.use(bp.urlencoded({ extended: false }));
+server.use(bp.urlencoded({ extended: false, limit: "50mb" }));
 
 // multer - handle files
 const fileStorge = multer.diskStorage({
