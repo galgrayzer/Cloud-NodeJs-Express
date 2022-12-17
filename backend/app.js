@@ -9,6 +9,12 @@ const csrfProt = require("csurf")();
 const multer = require("multer");
 const crypto = require("crypto");
 const helmet = require("helmet");
+const fs = require("fs");
+const https = require("https");
+
+const privateKey = fs.readFileSync("private.key", "utf8");
+const certificate = fs.readFileSync("certificate.crt", "utf8");
+const credentials = { key: privateKey, cert: certificate };
 
 require("dotenv").config(); // writes environment variables to procces
 
@@ -39,7 +45,7 @@ server.use(bp.urlencoded({ extended: false, limit: "50mb" }));
 // reffererPolicy
 server.use(
   helmet.referrerPolicy({
-    policy: "strict-origin-when-cross-origin",
+    policy: "no-referrer-when-downgrade",
   })
 );
 
@@ -99,12 +105,16 @@ server.use(main);
 // 404 Error
 server.use("/", errorController.e404);
 
+// https
+const httpsServer = https.createServer(credentials, server);
+
 // init MongoDb database - mongoose
 mongoose.set("strictQuery", true);
 mongoose
   .connect(MONGODB_URI)
   .then((result) => {
-    server.listen(process.env.PORT);
+    httpsServer.listen(process.env.PORT);
+    // server.listen(process.env.PORT);
     console.log("App is runing on - " + process.env.PUBLIC_URL);
   })
   .catch((err) => console.log(err));
