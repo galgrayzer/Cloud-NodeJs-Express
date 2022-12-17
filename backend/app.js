@@ -8,6 +8,7 @@ const MongoDbStore = require("connect-mongodb-session")(session);
 const csrfProt = require("csurf")();
 const multer = require("multer");
 const crypto = require("crypto");
+const helmet = require("helmet");
 
 require("dotenv").config(); // writes environment variables to procces
 
@@ -34,6 +35,13 @@ server.set("views", path.join(__dirname, "..", "frontend", "views"));
 
 // init body-parser
 server.use(bp.urlencoded({ extended: false, limit: "50mb" }));
+
+// reffererPolicy
+server.use(
+  helmet.referrerPolicy({
+    policy: "strict-origin-when-cross-origin",
+  })
+);
 
 // multer - handle files
 const fileStorge = multer.diskStorage({
@@ -79,6 +87,7 @@ server.use((req, res, next) => {
   res.locals.user = req.session.user;
   res.locals.userAuth = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
+  res.locals.gId = process.env.GOOGLE_CLIENT_ID;
   next();
 });
 

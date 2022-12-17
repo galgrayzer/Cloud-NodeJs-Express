@@ -81,9 +81,9 @@ exports.postGoogle = (req, res, next) => {
         email: body.email,
       });
     }
+    username = body.username.replace(" ", "_");
     new User({
-      username:
-        body.username.Length > 20 ? body.username.slice(0, 19) : body.username,
+      username: username.Length > 20 ? username.slice(0, 19) : username,
       sub: body.sub,
       email: body.email,
       files: [],

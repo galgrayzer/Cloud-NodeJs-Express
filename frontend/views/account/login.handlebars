@@ -18,26 +18,26 @@
     don't have a user? <a href="/signup">signup</a>
     <i class="far fa-eye" id="togglePassword" style="margin-left: 110px; cursor: pointer;"></i>
     <input type="hidden" name="_csrf" value={{csrfToken}}>
-    <button class="" type="submit">Log In</button>
+    <button type="submit">Log In</button>
     forgot your password? <a href="/reset-password">reset password</a>
 
     <input type="hidden" id="sub" name="sub">
     <div id="g_id_onload"
-     data-client_id="6554731370-o4mlstlng1r6l79tqff8nc9g0poke2eh.apps.googleusercontent.com"
+     data-client_id={{gId}}
      data-context="signin"
      data-ux_mode="popup"
      data-callback="handleLogin"
      data-itp_support="true">
-</div>
+    </div>
 
-<div class="g_id_signin"
+    <div class="g_id_signin"
      data-type="standard"
      data-shape="pill"
      data-theme="filled_black"
      data-text="continue_with"
      data-size="large"
      data-logo_alignment="left">
-</div>
+    </div>
 </form>
 
 <script>
