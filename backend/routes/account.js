@@ -17,16 +17,16 @@ router.post(
   "/signup",
   auth.isNotLogged,
   body("username", "Username not valid")
-    .isAlphanumeric()
-    .withMessage("Username can only contain alphanumeric chars")
-    .isLength({ max: 20 })
-    .withMessage("Username length to long"),
+    .isLength({ max: 20, min: 1 })
+    .withMessage("Username length invalid"),
   check("email", "Email not valid").isEmail(),
   body("password", "Password not valid")
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 chars long"),
   signupController.postSignup
 );
+
+router.post("/gsignup", auth.isNotLogged, signupController.postGoogle);
 
 router.post("/logout", auth.authVerification, accountController.postLogout);
 
@@ -50,10 +50,8 @@ router.post(
   "/account",
   auth.authVerification,
   body("username", "Username not valid")
-    .isAlphanumeric()
-    .withMessage("Username can only contain alphanumeric chars")
-    .isLength({ max: 20 })
-    .withMessage("Username length to long"),
+    .isLength({ max: 20, min: 1 })
+    .withMessage("Username length invalid"),
   check("email", "Email not valid").isEmail(),
   accountController.postAccount
 );

@@ -8,13 +8,17 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      require: true,
+      require: false,
     },
     resetToken: String,
     resetTokenTime: Date,
     email: {
       type: String,
       require: true,
+    },
+    sub: {
+      type: String,
+      require: false,
     },
     files: [
       {

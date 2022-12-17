@@ -1,5 +1,5 @@
 const User = require("../../modules/user");
-const { validationResult } = require("express-validator");
+const { validationResult, body } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 exports.getSignup = (req, res, next) => {
@@ -47,12 +47,6 @@ exports.postSignup = (req, res, next) => {
         })
           .save()
           .then((result) => {
-            // sendEmail({
-            //   email: body.email,
-            //   username: body.username,
-            //   subject: "New Cloud Account",
-            //   html: `<h1>Welcome! ${body.username}</h1>`,
-            // });
             req.session.isLoggedIn = true;
             return User.findOne({ email: body.email }).then((user) => {
               req.session.user = user;
@@ -72,4 +66,43 @@ exports.postSignup = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postGoogle = (req, res, next) => {
+  const body = req.body;
+  User.findOne({ email: body.email }).then((user) => {
+    if (user) {
+      return res.render("./account/signup", {
+        document: "Signup",
+        signup: true,
+        account: true,
+        userError: true,
+        message: "Email allready in use",
+        email: body.email,
+      });
+    }
+    new User({
+      username:
+        body.username.Length > 20 ? body.username.slice(0, 19) : body.username,
+      sub: body.sub,
+      email: body.email,
+      files: [],
+    })
+      .save()
+      .then((result) => {
+        req.session.isLoggedIn = true;
+        return User.findOne({ email: body.email }).then((user) => {
+          req.session.user = user;
+          req.session.save((err) => {
+            if (err) {
+              console.log(err);
+            }
+          });
+        });
+      })
+      .then((result) => {
+        return res.redirect("/");
+      })
+      .catch((err) => console.log(err));
+  });
 };

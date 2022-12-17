@@ -14,12 +14,40 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: body.email })
     .then((user) => {
       if (!user) {
-        res.render("./account/login", {
+        if (body.sub) {
+          return res.render("./account/login", {
+            document: "Login",
+            login: true,
+            account: true,
+            googleError: true,
+            email: body.email,
+          });
+        }
+        return res.render("./account/login", {
           document: "Login",
           login: true,
           account: true,
           userError: true,
           email: body.email,
+        });
+      } else if (body.sub && user.sub) {
+        if (user.sub !== body.sub) {
+          console.log("s");
+          return res.render("./account/login", {
+            document: "Login",
+            login: true,
+            account: true,
+            googleError: true,
+            email: body.email,
+          });
+        }
+        req.session.isLoggedIn = true;
+        req.session.user = user;
+        req.session.save((err) => {
+          if (err) {
+            console.log(err);
+          }
+          res.redirect("/");
         });
       } else {
         return bcrypt
