@@ -114,7 +114,6 @@ mongoose
   .connect(MONGODB_URI)
   .then((result) => {
     httpsServer.listen(process.env.PORT);
-    // server.listen(process.env.PORT);
     console.log("App is runing on - " + process.env.PUBLIC_URL);
   })
   .catch((err) => console.log(err));

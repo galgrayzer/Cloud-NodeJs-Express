@@ -1,5 +1,5 @@
 const User = require("../../modules/user");
-const { validationResult, body } = require("express-validator");
+const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 exports.getSignup = (req, res, next) => {

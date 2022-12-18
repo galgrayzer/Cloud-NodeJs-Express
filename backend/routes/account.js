@@ -17,6 +17,8 @@ router.post(
   "/signup",
   auth.isNotLogged,
   body("username", "Username not valid")
+    .custom((username) => !username.includes(" "))
+    .withMessage("Username can't include spaces")
     .isLength({ max: 20, min: 1 })
     .withMessage("Username length invalid"),
   check("email", "Email not valid").isEmail(),

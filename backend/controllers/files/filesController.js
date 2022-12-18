@@ -203,33 +203,58 @@ exports.postLock = (req, res, next) => {
     }
     User.findById(file.owner)
       .then((user) => {
-        return bcrypt
-          .compare(req.body.password, user.password)
-          .then((doMatch) => {
-            if (!doMatch) {
-              return res.render("./files/lock", {
-                document: "Confirm",
-                files: true,
-                fileId: req.params.fileId,
-                share: true, // only for style
-                userError: true,
-              });
-            }
-            if (!file.key) {
-              const key = crypto.randomBytes(32);
-              const iv = crypto.randomBytes(16);
-              file.key = key;
-              file.save();
-              encrypt.encrypt(file.path, key, iv);
-              return res.redirect("/files");
-            } else {
-              encrypt.decrypt(file.path, file.key);
-              file.key = undefined;
-              file.save();
-              return res.redirect("/files");
-            }
-          })
-          .catch((err) => console.log(err));
+        if (req.body.sub) {
+          if (req.body.sub !== user.sub) {
+            return res.render("./files/lock", {
+              document: "Confirm",
+              files: true,
+              fileId: req.params.fileId,
+              share: true, // only for style
+              userError: true,
+            });
+          }
+          if (!file.key) {
+            const key = crypto.randomBytes(32);
+            const iv = crypto.randomBytes(16);
+            file.key = key;
+            file.save();
+            encrypt.encrypt(file.path, key, iv);
+            return res.redirect("/files");
+          } else {
+            encrypt.decrypt(file.path, file.key);
+            file.key = undefined;
+            file.save();
+            return res.redirect("/files");
+          }
+        } else {
+          return bcrypt
+            .compare(req.body.password, user.password)
+            .then((doMatch) => {
+              if (!doMatch) {
+                return res.render("./files/lock", {
+                  document: "Confirm",
+                  files: true,
+                  fileId: req.params.fileId,
+                  share: true, // only for style
+                  userError: true,
+                });
+              }
+              if (!file.key) {
+                const key = crypto.randomBytes(32);
+                const iv = crypto.randomBytes(16);
+                file.key = key;
+                file.save();
+                encrypt.encrypt(file.path, key, iv);
+                return res.redirect("/files");
+              } else {
+                encrypt.decrypt(file.path, file.key);
+                file.key = undefined;
+                file.save();
+                return res.redirect("/files");
+              }
+            })
+            .catch((err) => console.log(err));
+        }
       })
       .catch((err) => console.log(err));
   });
