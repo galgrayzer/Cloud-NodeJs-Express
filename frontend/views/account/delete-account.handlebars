@@ -4,10 +4,9 @@
 </div>
 <form action="/delete-account" method="POST">
     <h3 class="uk-text-danger">DELETE ACCOUNT</h3>
-    <p>to delete your account please enter your username</p>
+    <p>To delete your account please enter your username: {{user.username}}</p>
     <label for="username">Account Name</label>
-    <input type="text" name="userValidName" placeholder={{user.username}} id="input" onkeyup="stateHandle()" onchange="stateHandle()" autocomplete="off">
-
+    <input type="text" name="userValidName" id="input" onkeyup="stateHandle()" onchange="stateHandle()" autocomplete="off">
     <input type="hidden" name="username" id="username" value={{user.username}}>
     <input type="hidden" name="id" id="id" value={{user._id}}>
     <input type="hidden" name="_csrf" value={{csrfToken}}>

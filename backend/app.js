@@ -108,12 +108,19 @@ server.use("/", errorController.e404);
 // https
 const httpsServer = https.createServer(credentials, server);
 
+// redirect to https
+const redirectServer = express();
+redirectServer.use("/", (req, res, next) => {
+  res.status(301).redirect("https://galgrayzer.ga/");
+});
+
 // init MongoDb database - mongoose
 mongoose.set("strictQuery", true);
 mongoose
   .connect(MONGODB_URI)
   .then((result) => {
     httpsServer.listen(process.env.PORT);
+    redirectServer.listen(80);
     console.log("App is runing on - " + process.env.PUBLIC_URL);
   })
   .catch((err) => console.log(err));
