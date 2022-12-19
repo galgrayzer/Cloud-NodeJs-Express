@@ -12,11 +12,12 @@ const helmet = require("helmet");
 const fs = require("fs");
 const https = require("https");
 
-const privateKey = fs.readFileSync("private.key", "utf8");
-const certificate = fs.readFileSync("certificate.crt", "utf8");
-const credentials = { key: privateKey, cert: certificate };
+require("dotenv").config(); // write environment variables to process
 
-require("dotenv").config(); // writes environment variables to procces
+// https verification
+const privateKey = fs.readFileSync("./SLL Certificates/private.key", "utf8");
+const certificate = fs.readFileSync("./SLL Certificates/certificate.crt", "utf8");
+const credentials = { key: privateKey, cert: certificate };
 
 process.stdout.write("\033c"); // clears terminal
 
