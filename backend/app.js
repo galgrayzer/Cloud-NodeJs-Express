@@ -15,8 +15,14 @@ const https = require("https");
 require("dotenv").config(); // write environment variables to process
 
 // https verification
-const privateKey = fs.readFileSync("./SLL Certificates/private.key", "utf8");
-const certificate = fs.readFileSync("./SLL Certificates/certificate.crt", "utf8");
+const privateKey = fs.readFileSync(
+  "./SLL Certificates/galgrayzer.com.key",
+  "utf8"
+);
+const certificate = fs.readFileSync(
+  "./SLL Certificates/galgrayzer.com.pem",
+  "utf8"
+);
 const credentials = { key: privateKey, cert: certificate };
 
 process.stdout.write("\033c"); // clears terminal
@@ -112,7 +118,7 @@ const httpsServer = https.createServer(credentials, server);
 // redirect to https
 const redirectServer = express();
 redirectServer.use("/", (req, res, next) => {
-  res.status(301).redirect("https://galgrayzer.ga/");
+  res.status(301).redirect(process.env.PUBLIC_URL);
 });
 
 // init MongoDb database - mongoose

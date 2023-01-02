@@ -7669,3 +7669,5 @@ node_modules/helmet/dist/types/middlewares/x-frame-options/index.d.ts
 node_modules/helmet/dist/types/middlewares/x-permitted-cross-domain-policies/index.d.ts
 node_modules/helmet/dist/types/middlewares/x-powered-by/index.d.ts
 node_modules/helmet/dist/types/middlewares/x-xss-protection/index.d.ts
+SLL Certificates/galgrayzer.com.key
+SLL Certificates/galgrayzer.com.pem
